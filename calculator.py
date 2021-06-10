@@ -11,6 +11,8 @@ saveResultMessageShowed = False
 specialOperation = False
 historyLog = []
 
+clear = lambda: os.system('clear')
+
 class logs(object):
 	def __init__(self, val1, val2, operationVal):
 		self.val1 = val1
@@ -136,7 +138,6 @@ while True:
 		specialOperation = True
 	elif operation == 'clear':
 		speacialOperation = True
-		clear = lambda: os.system('clear')
 
 		for i in range(0, 5):
 			time.sleep(0.9)
@@ -147,6 +148,17 @@ while True:
 				time.sleep(0.9)
 		clear()
 		specialOperation = True
+	elif operation == 'exit' or operation == 'quit':
+		specialOperation = True
+		print('\033[1;31,40mTo už je konec? No nic nezbývá mi nic jiného než se rozloučit.')
+		exitMessages = ['budeš mi chybět moc', 'fakt moc', 'nechceš si to ještě rozmyslet?', 'tak čau..']
+		time.sleep(2)
+		clear()
+		for index, val in enumerate(exitMessages):
+			print('\033[1;31;40m'+val)
+			time.sleep(1.5)
+			clear()
+		os._exit(0);
 	else:
 		print('\033[1;31;40mBohužel, tuhle operaci {} zatím neznám, snad se jí naučím.'.format(operation) + '\n')
 		historyLog.append(logs(0, 0, operation))
