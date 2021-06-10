@@ -72,41 +72,56 @@ while True:
 	print('+, -, *, /, **, //, null')
 	operation = input('\033[1;33;40mOperace: ').strip()
 
+	#addition
 	if operation == '+':
 		firstVal = float(input('\n\033[1;37;40mZadej 1. číslo: '))
 		secondVal = float(input('Zadej 2. číslo: '))
 		result += firstVal + secondVal
 		historyLog.append(logs(firstVal, secondVal, operation))
+
+	#subtraction
 	elif operation == '-':
 		firstVal = float(input('\n\033[1;37;40mZadej 1. číslo: '))
 		secondVal = float(input('Zadej 2. číslo: '))
 		result += firstVal - secondVal
 		historyLog.append(logs(firstVal, secondVal, operation))
+
+	#multiplication
 	elif operation == '*':
 		firstVal = float(input('\n\033[1;37;40mZadej 1. číslo: '))
 		secondVal = float(input('Zadej 2. číslo: '))
 		result += firstVal * secondVal
 		historyLog.append(logs(firstVal, secondVal, operation))
+
+	#dividing
 	elif operation == '/':
 		firstVal = float(input('\n\033[1;37;40mZadej 1. číslo: '))
 		secondVal = float(input('Zadej 2. číslo: '))
 		result += firstVal / secondVal
 		historyLog.append(logs(firstVal, secondVal, operation))
+
+	#exponentition
 	elif operation == '**':
 		firstVal = float(input('\n\033[1;37;40mZadej 1. číslo: '))
 		secondVal = float(input('Zadej 2. číslo: '))
 		result += firstVal ** secondVal
 		historyLog.append(logs(firstVal, secondVal, operation))
+
+	#square root
 	elif operation == '//':
 		firstVal = float(input('\n\033[1;37;40mZadej číslo k odmocnění: '))
 		secondVal = 0
 		result += math.sqrt(firstVal)
 		historyLog.append(logs(firstVal, 0, operation))
+
+	#null result
 	elif operation == 'null':
 		result = 0
 		print('\033[1;33;40mVýsledek byl vynulován. \n')
 		specialOperation = True
 		historyLog.append(logs(0, 0, operation))
+
+	#help commands
 	elif operation == '?' or operation == 'help':
 		print('\n\033[1;34;40mOperace "+" znamená sčítání. \nOperace "-" znamená odčítání.')
 		print('Operace "*" znamená násobení. \nOperace "/" znamená dělení.')
@@ -116,12 +131,16 @@ while True:
 		print('Operace 01100101 01111000 01110000 01101111 01110010 01110100 znamená uložení úkonů do tvaru json. \n')
 		specialOperation = True
 		historyLog.append(logs(0, 0, operation))
+
+	#logging
 	elif operation == 'log':
 		historyLog.append(logs(0, 0, operation))
 		print('\033[1;34;40mGratuluji, našel jsi easter egg! \n')
 		for log in historyLog:
 			log.show()
 		specialOperation = True
+
+	#export logs & create html document
 	elif operation == 'export':
 		historyLog.append(logs(0,0,operation))
 		print('\033[1;34;40mVypadá to že jsi asi koukal do zdrojáku, no neva já ti uložím tvoje odpovědi... \n')
@@ -132,15 +151,16 @@ while True:
 
 		#save json objects to json file
 		with open('data.json', 'w', encoding='utf-8') as fp:
-    			fp.write(json.dumps(jsonData).replace('\\', '')[1:len(jsonData) + 1])
+    			fp.write(json.dumps(jsonData).replace('\\', '')[1:-1])
 
-
-		htmlContent = '<!DOCTYPE html> <html lang="cs"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>PythonCalculator</title> <meta name="author" content="Filip Kalousek https://twentio.cz"> </head> <body> <style> @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"); *, ::after, ::before 😔 box-sizing: border-box; padding: 0; margin: 0; ☺ body 😔 margin: 0; font-family: "Roboto Mono", monospace; background: rgb(11, 12, 17); ☺ body .content 😔 display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 90%; margin: 0 auto; margin-top: 1rem; ☺ body .content h1 😔 color: rgb(249,229,211); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 2rem; ☺ body .content ul 😔 list-style: none; color: rgb(255, 255, 255); ☺ body .content ul li 😔 text-align: center; ☺ body .content ul li:not(:last-of-type) 😔 margin-bottom: 1rem; ☺ body footer 😔 padding: 2rem 0; display: flex; align-items: center; justify-content: center; ☺ body footer .copy 😔 color: rgb(255, 255, 255); display: flex; ☺ body footer .copy a 😔 color: rgb(255, 255, 255); margin-left: 1rem; ☺ </style> <div id="app"> <div class="content"> <h1>HISTORY LOG</h1> <ul> <li v-for="(log, index) in $root.logsList.logs"> <p class="operation" v-if="log.operationVal == &#39;+&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) + parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;-&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) - parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;*&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) * parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;/&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) / parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;?&#39; || log.operationVal == &#39;help&#39;"> 😔😔index + 1☺☺. Vyžádal jsi pomoc a tím našel všechny skryté funkce, jsi borec. 👍 </p> <p class="operation" v-else-if="log.operationVal == &#39;//&#39;"> 😔😔index + 1☺☺. √😔😔log.val1☺☺ = <b>😔😔Math.sqrt(parseInt(log.val1))☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;**&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ na 😔😔log.val2☺☺ = <b>😔😔Math.pow(parseInt(log.val1),parseInt(log.val2))☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;log&#39;"> 😔😔index + 1☺☺. Hezky pěkně, víš jak si ukázat logy přímo v programu. 😎 </p> <p class="operation" v-else-if="log.operationVal == &#39;export&#39;"> 😔😔index + 1☺☺. Tak našel jsi easter egg na export, to z tebe dělá největšího frajera na světě! 🤘 </p> <p class="operation" v-else> 😔😔index + 1☺☺. Sorry, ale fakt tuhle operaci neznám: 😔😔log.operationVal☺☺ </p> </li> </ul> </div> </div> <footer> <div class="copy"> vytvořil <a href="https://github.com/kaldaf" target="_blank">Filip Kalousek</a> </div> </footer> <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> <script> var app = new Vue(😔 el : "#app", data: 😔 logsList: [] ☺, mounted() 😔 var str = ''\''+ json.dumps(jsonData).replace('\\', '')[1:len(jsonData) + 1] + '' '\'; str = JSON.parse(str); this.logsList = str; ☺, ☺) </script> </body> </html>'
+		htmlContent = '<!DOCTYPE html> <html lang="cs"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>PythonCalculator</title> <meta name="author" content="Filip Kalousek https://twentio.cz"> </head> <body> <style> @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"); *, ::after, ::before 😔 box-sizing: border-box; padding: 0; margin: 0; ☺ body 😔 margin: 0; font-family: "Roboto Mono", monospace; background: rgb(11, 12, 17); ☺ body .content 😔 display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 90%; margin: 0 auto; margin-top: 1rem; ☺ body .content h1 😔 color: rgb(249,229,211); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 2rem; ☺ body .content ul 😔 list-style: none; color: rgb(255, 255, 255); ☺ body .content ul li 😔 text-align: center; ☺ body .content ul li:not(:last-of-type) 😔 margin-bottom: 1rem; ☺ body footer 😔 padding: 2rem 0; display: flex; align-items: center; justify-content: center; ☺ body footer .copy 😔 color: rgb(255, 255, 255); display: flex; ☺ body footer .copy a 😔 color: rgb(255, 255, 255); margin-left: 1rem; ☺ </style> <div id="app"> <div class="content"> <h1>HISTORY LOG</h1> <ul> <li v-for="(log, index) in $root.logsList.logs"> <p class="operation" v-if="log.operationVal == &#39;+&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) + parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;-&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) - parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;*&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) * parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;/&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) / parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;?&#39; || log.operationVal == &#39;help&#39;"> 😔😔index + 1☺☺. Vyžádal jsi pomoc a tím našel všechny skryté funkce, jsi borec. 👍 </p> <p class="operation" v-else-if="log.operationVal == &#39;//&#39;"> 😔😔index + 1☺☺. √😔😔log.val1☺☺ = <b>😔😔Math.sqrt(parseInt(log.val1))☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;**&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ na 😔😔log.val2☺☺ = <b>😔😔Math.pow(parseInt(log.val1),parseInt(log.val2))☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;log&#39;"> 😔😔index + 1☺☺. Hezky pěkně, víš jak si ukázat logy přímo v programu. 😎 </p> <p class="operation" v-else-if="log.operationVal == &#39;export&#39;"> 😔😔index + 1☺☺. Tak našel jsi easter egg na export, to z tebe dělá největšího frajera na světě! 🤘 </p> <p class="operation" v-else> 😔😔index + 1☺☺. Sorry, ale fakt tuhle operaci neznám: 😔😔log.operationVal☺☺ </p> </li> </ul> </div> </div> <footer> <div class="copy"> vytvořil <a href="https://github.com/kaldaf" target="_blank">Filip Kalousek</a> </div> </footer> <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> <script> var app = new Vue(😔 el : "#app", data: 😔 logsList: [] ☺, mounted() 😔 var str = ''\''+ json.dumps(jsonData).replace('\\', '')[1:-1] + '' '\'; str = JSON.parse(str); this.logsList = str; ☺, ☺) </script> </body> </html>'
 
 		with open('index.html', 'w', encoding='utf-8') as fp:
 			fp.write(htmlContent.replace('☺','}').replace('😔','{'))
-		print('Tvé odpovědi úspěšně uloženy.')
+		print('Tvé odpovědi úspěšně uloženy.\n')
 		specialOperation = True
+
+	#clear terminal
 	elif operation == 'clear':
 		speacialOperation = True
 
@@ -153,6 +173,9 @@ while True:
 				time.sleep(0.9)
 		clear()
 		specialOperation = True
+
+
+	#exit app
 	elif operation == 'exit' or operation == 'quit':
 		specialOperation = True
 		print('\033[1;31,40mTo už je konec? No nic nezbývá mi nic jiného než se rozloučit.')
