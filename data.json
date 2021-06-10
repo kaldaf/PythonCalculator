@@ -1,1 +1,1 @@
-{"logs": [{"val1": "0", "val2": "0", "operationVal": "log"}, {"val1": "0", "val2": "0", "operationVal": "export"}]}
+{"logs": [{"val1": "235.0", "val2": "0", "operationVal": "//"}, {"val1": "2.0", "val2": "45.0", "operationVal": "+"}, {"val1": "0", "val2": "0", "operationVal": "log"}, {"val1": "0", "val2": "0", "operationVal": "export"}, {"val1": "0", "val2": "0", "operationVal": "ahoj nevim co pisu"}, {"val1": "0", "val2": "0", "operationVal": "export"}]}
