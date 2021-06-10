@@ -21,7 +21,7 @@ class logs(object):
 
 	def to_json(self):
 		#vraceni vsech operaci ve formatu json objektu
-		return { "val1": self.val1, "val2": self.val2, "operationVal": "{}".format(self.operationVal) }
+		return { "val1": "{}".format(self.val1), "val2":"{}".format(self.val2), "operationVal": "{}".format(self.operationVal) }
 
 	def show(self):
 		#vypsani vsech operaci
@@ -131,9 +131,14 @@ while True:
 		jsonData = json.dumps({"logs": listToExport})
 
 		#save json objects to json file
-		with open('data.json', 'w', encoding='utf-8') as f:
-    			json.dump(jsonData, f, ensure_ascii=False, indent=4)
+		with open('data.json', 'w', encoding='utf-8') as fp:
+    			fp.write(json.dumps(jsonData).replace('\\', '')[1:len(jsonData) + 1])
 
+
+		htmlContent = '<!DOCTYPE html> <html lang="cs"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>PythonCalculator</title> <meta name="author" content="Filip Kalousek https://twentio.cz"> </head> <body> <style> @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"); *, ::after, ::before 😔 box-sizing: border-box; padding: 0; margin: 0; ☺ body 😔 margin: 0; font-family: "Roboto Mono", monospace; background: rgb(11, 12, 17); ☺ body .content 😔 display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 90%; margin: 0 auto; margin-top: 1rem; ☺ body .content h1 😔 color: rgb(249,229,211); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 2rem; ☺ body .content ul 😔 list-style: none; color: rgb(255, 255, 255); ☺ body .content ul li 😔 text-align: center; ☺ body .content ul li:not(:last-of-type) 😔 margin-bottom: 1rem; ☺ body footer 😔 padding: 2rem 0; display: flex; align-items: center; justify-content: center; ☺ body footer .copy 😔 color: rgb(255, 255, 255); display: flex; ☺ body footer .copy a 😔 color: rgb(255, 255, 255); margin-left: 1rem; ☺ </style> <div id="app"> <div class="content"> <h1>HISTORY LOG</h1> <ul> <li v-for="(log, index) in $root.logsList.logs"> <p class="operation" v-if="log.operationVal == &#39;+&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) + parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;-&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) - parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;*&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) * parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;/&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ 😔😔log.operationVal☺☺ 😔😔log.val2☺☺ = <b>😔😔parseInt(log.val1) / parseInt(log.val2)☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;?&#39; || log.operationVal == &#39;help&#39;"> 😔😔index + 1☺☺. Vyžádal jsi pomoc a tím našel všechny skryté funkce, jsi borec. 👍 </p> <p class="operation" v-else-if="log.operationVal == &#39;//&#39;"> 😔😔index + 1☺☺. √😔😔log.val1☺☺ = <b>😔😔Math.sqrt(parseInt(log.val1))☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;**&#39;"> 😔😔index + 1☺☺. 😔😔log.val1☺☺ na 😔😔log.val2☺☺ = <b>😔😔Math.pow(parseInt(log.val1),parseInt(log.val2))☺☺</b> </p> <p class="operation" v-else-if="log.operationVal == &#39;log&#39;"> 😔😔index + 1☺☺. Hezky pěkně, víš jak si ukázat logy přímo v programu. 😎 </p> <p class="operation" v-else-if="log.operationVal == &#39;export&#39;"> 😔😔index + 1☺☺. Tak našel jsi easter egg na export, to z tebe dělá největšího frajera na světě! 🤘 </p> <p class="operation" v-else> 😔😔index + 1☺☺. Sorry, ale fakt tuhle operaci neznám: 😔😔log.operationVal☺☺ </p> </li> </ul> </div> </div> <footer> <div class="copy"> vytvořil <a href="https://github.com/kaldaf" target="_blank">Filip Kalousek</a> </div> </footer> <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> <script> var app = new Vue(😔 el : "#app", data: 😔 logsList: [] ☺, mounted() 😔 var str = ''\''+ json.dumps(jsonData).replace('\\', '')[1:len(jsonData) + 1] + '' '\'; str = JSON.parse(str); this.logsList = str; ☺, ☺) </script> </body> </html>'
+
+		with open('index.html', 'w', encoding='utf-8') as fp:
+			fp.write(htmlContent.replace('☺','}').replace('😔','{'))
 		print('Tvé odpovědi úspěšně uloženy.')
 		specialOperation = True
 	elif operation == 'clear':
@@ -160,7 +165,7 @@ while True:
 			clear()
 		os._exit(0);
 	else:
-		print('\033[1;31;40mBohužel, tuhle operaci {} zatím neznám, snad se jí naučím.'.format(operation) + '\n')
+		print('\033[1;31;40mBohužel, tuhle operaci "{}" zatím neznám, snad se jí naučím.'.format(operation) + '\n')
 		historyLog.append(logs(0, 0, operation))
 		specialOperation = True
 
