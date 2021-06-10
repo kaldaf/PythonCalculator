@@ -1,12 +1,14 @@
+import os
+import time
 import math
 import json
+
 result = 0
 firtsVal = 0
 secondVal = 0
 saveResults = False
 saveResultMessageShowed = False
 specialOperation = False
-
 historyLog = []
 
 class logs(object):
@@ -14,9 +16,13 @@ class logs(object):
 		self.val1 = val1
 		self.val2 = val2
 		self.operationVal = operationVal
+
 	def to_json(self):
+		#vraceni vsech operaci ve formatu json objektu
 		return { "val1": self.val1, "val2": self.val2, "operationVal": "{}".format(self.operationVal) }
+
 	def show(self):
+		#vypsani vsech operaci
 		if self.operationVal == '?' or self.operationVal == 'help':
 			print('Našel jsi nabídku kde je vše vysvětlené, snad to už chápeš.')
 		elif self.operationVal == 'null':
@@ -40,7 +46,8 @@ class logs(object):
 		else:
 			print('Nechci říct, že jsi hlupák... 🤐')
 			print('Ale fakt tuhle operaci neznám: {}'.format(self.operationVal))
-while True:
+
+#setup pracovani s hodnotami
 	if saveResultMessageShowed == False:
 
 		print('Budeme ukládat výsledky?')
@@ -56,6 +63,8 @@ while True:
 			print('\033[1;31;40mBohužel takovou odpověď neberu, radši to uložíme.')
 			saveResults = True
 		saveResultMessageShowed = True
+
+while True:
 
 	print('\033[1;32;40mJakou operaci budeme dělat?')
 	print('+, -, *, /, **, //, null')
@@ -100,7 +109,9 @@ while True:
 		print('\n\033[1;34;40mOperace "+" znamená sčítání. \nOperace "-" znamená odčítání.')
 		print('Operace "*" znamená násobení. \nOperace "/" znamená dělení.')
 		print('Operace "**" znamená mocnění. \nOperace "//" znamená odmocnění.')
-		print('Operace "null" znamená vynulování výsledku. \n')
+		print('Operace "null" znamená vynulování výsledku.')
+		print('Operace 01101100 01101111 01100111 znamená vypsání všech dosavadních úkonů.')
+		print('Operace 01100101 01111000 01110000 01101111 01110010 01110100 znamená uložení úkonů do tvaru json. \n')
 		specialOperation = True
 		historyLog.append(logs(0, 0, operation))
 	elif operation == 'log':
@@ -113,13 +124,28 @@ while True:
 		historyLog.append(logs(0,0,operation))
 		print('\033[1;34;40mVypadá to že jsi asi koukal do zdrojáku, no neva já ti uložím tvoje odpovědi... \n')
 
+		#list convert to json
 		listToExport = [obj.to_json() for obj in historyLog]
 		jsonData = json.dumps({"logs": listToExport})
 
+		#save json objects to json file
 		with open('data.json', 'w', encoding='utf-8') as f:
     			json.dump(jsonData, f, ensure_ascii=False, indent=4)
 
 		print('Tvé odpovědi úspěšně uloženy.')
+		specialOperation = True
+	elif operation == 'clear':
+		speacialOperation = True
+		clear = lambda: os.system('clear')
+
+		for i in range(0, 5):
+			time.sleep(0.9)
+			print('Konzole se čistí {}...'.format(str(5 - i)))
+			if i == 4:
+				time.sleep(0.9)
+				print('Konzole úspěšně vyčištěna ✅.')
+				time.sleep(0.9)
+		clear()
 		specialOperation = True
 	else:
 		print('\033[1;31;40mBohužel, tuhle operaci {} zatím neznám, snad se jí naučím.'.format(operation) + '\n')
@@ -128,6 +154,8 @@ while True:
 
 	if specialOperation == False:
 		print('\033[1;31;40mAktuální výsledek je: {}'.format(result) + '\n')
+
 	specialOperation = False
+
 	if saveResults == False:
 		result = 0
