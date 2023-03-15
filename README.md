@@ -1,25 +1,32 @@
-# Česká jednoduchá Python kalkulačka
+# Simple Python calculator
+> Amateur code :)
 
-Nainstaluj si python a spusť soubor pomocí příkazu:
+## Included libs:
+- os
+- time
+- math
+- json
+
+Install python and run the file using the command:
 
 ```bash
 python3 calculator.py
 ```
 
-## Funkce
+## Functions
 
-* Počítácí
-    * Sčítání "+"
-    * Odčítání "-"
-    * Násobení "*"
-    * Dělení "/"
-    * Umocňování "**"
-    * Odmocňování "//"
-    * Nulování výsledku "null"
+* Calculator
+    * Adding "+"
+    * Subtraction "-"
+    * Multiplication "*"
+    * Division "/"
+    * Multiplication "**"
+    * Subtraction "//"
+    * Nulling the result "null"
     
-* Skryté
-    * "log" (zobrazení všeho, co uživatel napsal)
-    * "export" (exportování dat do HTML a do JSON)
-    * "clear" (vymazání všeho vykresleného v terminálu)
-    * "help" nebo "?" (ukázání nápovědy)
-    * "quit" nebo "exit" (ukončení aplikace)
+* Hidden
+    * "log" (displaying everything the user has typed)
+    * "export" (export data to HTML and JSON)
+    * "clear" (clear everything rendered in the terminal)
+    * "help" or "?" (show help)
+    * "quit" or "exit" (exit the application)
